@@ -1,0 +1,21 @@
+//版本一
+var fs = require('fs'),
+    rs = fs.createReadStream('C:/Users/Flyiyi/Desktop/1.txt'),
+    ws=fs.createWriteStream('C:/Users/Flyiyi/Desktop/2.txt');//只写流会将文件清空后再写入
+rs.on('data',function(chunk){ws.write(chunk)});
+rs.on('end',function(){ws.end();});
+//版本二，防止爆仓
+var fs = require('fs'),
+    rs = fs.createReadStream('C:/Users/Flyiyi/Desktop/1.txt'),
+    ws=fs.createWriteStream('C:/Users/Flyiyi/Desktop/2.txt');//只写流会将文件清空后再写入
+rs.on('data',function(chunk){
+    if(ws.write(chunk)===false){
+        rs.pause();
+    }});
+rs.on('end',function(){ws.end();});
+ws.on('drain',function(){
+   rs.resume();
+});
+//版本三，内置pipe防止爆仓
+var fs = require('fs');
+fs.createReadStream('C:/Users/Flyiyi/Desktop/1.txt').pipe(fs.createWriteStream('C:/Users/Flyiyi/Desktop/2.txt'));
