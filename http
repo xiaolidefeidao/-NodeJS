@@ -1,0 +1,27 @@
+当客户端发送请求并接收到完整的服务端响应头时，就会调用回调函数。在回调函数中，除了可以使用response对象访问响应头数据外，还能把response对象当作一个只读数据流来访问响应体数据。以下是一个例子。
+
+http.get('http://www.example.com/', function (response) {
+    var body = [];
+
+    console.log(response.statusCode);
+    console.log(response.headers);
+
+    response.on('data', function (chunk) {
+        body.push(chunk);
+    });
+
+    response.on('end', function () {
+        body = Buffer.concat(body);
+        console.log(body.toString());
+    });
+});
+
+------------------------------------
+200
+{ 'content-type': 'text/html',
+  server: 'Apache',
+  'content-length': '801',
+  date: 'Tue, 05 Nov 2013 06:08:41 GMT',
+  connection: 'keep-alive' }
+<!DOCTYPE html>
+...
