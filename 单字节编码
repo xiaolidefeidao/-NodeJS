@@ -1,0 +1,8 @@
+var fs=require('fs');
+function replace(pathname) {
+    var str = fs.readFileSync(pathname, 'binary');
+    str = str.replace('foo', 'bar');
+    fs.writeFileSync(pathname, str, 'binary');
+}
+replace('C:/Users/Flyiyi/Desktop/1.txt')
+//啊就是打开barsadda==>啊就是打开foosadda
