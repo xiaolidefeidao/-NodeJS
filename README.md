@@ -1,3 +1,3 @@
 # -NodeJS
-#http://www.lvtao.net/content/book/node.js.htm#1.1
-七天学会NodeJS的学习笔记
+
+七天学会 [NodeJS](http://nqdeng.github.io/7-days-nodejs/#1.1)
